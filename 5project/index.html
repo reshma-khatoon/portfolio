@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator - Reshma Khatoon</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #0ea5e9;
+    }
+
+    h1 {
+      color: #e5e7eb;
+      margin-bottom: 2rem;
+      font-size: 2.5rem;
+    }
+
+    .calculator {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      width: 320px;
+    }
+
+    .display {
+      background: #020617;
+      color: #38bdf8;
+      font-size: 2.5rem;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      text-align: right;
+      word-break: break-all;
+      word-wrap: break-word;
+      min-height: 80px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      border: 2px solid #38bdf8;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+    }
+
+    button {
+      padding: 1.2rem;
+      font-size: 1.3rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      color: #fff;
+    }
+
+    button.number, button.decimal {
+      background: #334155;
+      color: #e5e7eb;
+    }
+
+    button.number:hover, button.decimal:hover {
+      background: #475569;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    button.operator {
+      background: linear-gradient(135deg, #d00765, #670349);
+      grid-column: span 1;
+    }
+
+    button.operator:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(208, 7, 101, 0.4);
+    }
+
+    button.equals {
+      background: linear-gradient(135deg, #0ea5e9, #2563eb);
+      grid-column: span 2;
+    }
+
+    button.equals:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(14, 165, 233, 0.4);
+    }
+
+    button.clear {
+      background: #dc2626;
+      grid-column: span 2;
+    }
+
+    button.clear:hover {
+      background: #b91c1c;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(220, 38, 38, 0.4);
+    }
+
+    button.delete {
+      background: #f59e0b;
+    }
+
+    button.delete:hover {
+      background: #d97706;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(245, 158, 11, 0.4);
+    }
+
+    .footer {
+      margin-top: 2rem;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 480px) {
+      .calculator {
+        width: 100%;
+        max-width: 280px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      button {
+        padding: 1rem;
+        font-size: 1.1rem;
+      }
+
+      .display {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../index.html" class="back-link">← Back to Portfolio</a>
+    <h1>🧮 Calculator</h1>
+    <div class="calculator">
+      <div class="display" id="display">0</div>
+      <div class="buttons">
+        <button class="clear" onclick="clearDisplay()">AC</button>
+        <button class="delete" onclick="deleteLast()">DEL</button>
+        <button class="operator" onclick="appendOperator('/')">÷</button>
+        <button class="operator" onclick="appendOperator('*')">×</button>
+
+        <button class="number" onclick="appendNumber('7')">7</button>
+        <button class="number" onclick="appendNumber('8')">8</button>
+        <button class="number" onclick="appendNumber('9')">9</button>
+        <button class="operator" onclick="appendOperator('-')">−</button>
+
+        <button class="number" onclick="appendNumber('4')">4</button>
+        <button class="number" onclick="appendNumber('5')">5</button>
+        <button class="number" onclick="appendNumber('6')">6</button>
+        <button class="operator" onclick="appendOperator('+')">+</button>
+
+        <button class="number" onclick="appendNumber('1')">1</button>
+        <button class="number" onclick="appendNumber('2')">2</button>
+        <button class="number" onclick="appendNumber('3')">3</button>
+        <button class="decimal" onclick="appendDecimal()">.</button>
+
+        <button class="number" onclick="appendNumber('0')">0</button>
+        <button class="equals" onclick="calculate()">=</button>
+      </div>
+    </div>
+    <div class="footer">
+      Built with ❤️ by Reshma Khatoon
+    </div>
+  </div>
+
+  <script>
+    let display = document.getElementById('display');
+    let currentInput = '0';
+    let operator = null;
+    let previousValue = null;
+    let shouldResetDisplay = false;
+
+    function updateDisplay() {
+      display.textContent = currentInput;
+    }
+
+    function appendNumber(num) {
+      if (shouldResetDisplay) {
+        currentInput = num;
+        shouldResetDisplay = false;
+      } else {
+        currentInput = currentInput === '0' ? num : currentInput + num;
+      }
+      updateDisplay();
+    }
+
+    function appendOperator(op) {
+      if (operator !== null && !shouldResetDisplay) {
+        calculate();
+      }
+      previousValue = currentInput;
+      operator = op;
+      shouldResetDisplay = true;
+      updateDisplay();
+    }
+
+    function appendDecimal() {
+      if (shouldResetDisplay) {
+        currentInput = '0.';
+        shouldResetDisplay = false;
+      } else if (!currentInput.includes('.')) {
+        currentInput += '.';
+      }
+      updateDisplay();
+    }
+
+    function calculate() {
+      if (operator === null || previousValue === null) return;
+
+      let result;
+      const prev = parseFloat(previousValue);
+      const current = parseFloat(currentInput);
+
+      switch (operator) {
+        case '+':
+          result = prev + current;
+          break;
+        case '-':
+          result = prev - current;
+          break;
+        case '*':
+          result = prev * current;
+          break;
+        case '/':
+          result = current !== 0 ? prev / current : 0;
+          break;
+        default:
+          return;
+      }
+
+      currentInput = result.toString();
+      operator = null;
+      previousValue = null;
+      shouldResetDisplay = true;
+      updateDisplay();
+    }
+
+    function clearDisplay() {
+      currentInput = '0';
+      operator = null;
+      previousValue = null;
+      shouldResetDisplay = false;
+      updateDisplay();
+    }
+
+    function deleteLast() {
+      if (currentInput.length > 1) {
+        currentInput = currentInput.slice(0, -1);
+      } else {
+        currentInput = '0';
+      }
+      updateDisplay();
+    }
+  </script>
+</body>
+</html>

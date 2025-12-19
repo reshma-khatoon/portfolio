@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App - Reshma Khatoon</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #0ea5e9;
+    }
+
+    h1 {
+      color: #e5e7eb;
+      margin-bottom: 2rem;
+      text-align: center;
+      font-size: 2.5rem;
+    }
+
+    .weather-box {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .search-box {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    input {
+      flex: 1;
+      padding: 1rem;
+      border: 2px solid #38bdf8;
+      border-radius: 10px;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #0ea5e9;
+    }
+
+    input::placeholder {
+      color: #64748b;
+    }
+
+    button {
+      padding: 1rem 1.5rem;
+      background: linear-gradient(135deg, #0ea5e9, #2563eb);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(14, 165, 233, 0.4);
+    }
+
+    .weather-info {
+      text-align: center;
+      display: none;
+    }
+
+    .weather-info.active {
+      display: block;
+    }
+
+    .city-name {
+      font-size: 2rem;
+      color: #38bdf8;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .temperature {
+      font-size: 3.5rem;
+      color: #e5e7eb;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .description {
+      font-size: 1.2rem;
+      color: #cbd5e1;
+      margin-bottom: 2rem;
+      text-transform: capitalize;
+    }
+
+    .details {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .detail-box {
+      background: #020617;
+      padding: 1.5rem;
+      border-radius: 10px;
+      border-left: 4px solid #d00765;
+    }
+
+    .detail-label {
+      color: #64748b;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .detail-value {
+      color: #38bdf8;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .error {
+      color: #ef4444;
+      text-align: center;
+      font-size: 1.1rem;
+      display: none;
+    }
+
+    .error.active {
+      display: block;
+    }
+
+    .loading {
+      text-align: center;
+      color: #38bdf8;
+      display: none;
+    }
+
+    .loading.active {
+      display: block;
+    }
+
+    .footer {
+      margin-top: 2rem;
+      text-align: center;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .temperature {
+        font-size: 2.5rem;
+      }
+
+      .weather-box {
+        padding: 1.5rem;
+      }
+
+      .search-box {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../index.html" class="back-link">← Back to Portfolio</a>
+    <h1>🌤️ Weather App</h1>
+    
+    <div class="weather-box">
+      <div class="search-box">
+        <input type="text" id="cityInput" placeholder="Enter city name..." autocomplete="off">
+        <button onclick="searchWeather()">Search</button>
+      </div>
+
+      <div class="loading" id="loading">Loading...</div>
+      <div class="error" id="error"></div>
+
+      <div class="weather-info" id="weatherInfo">
+        <div class="city-name" id="cityName"></div>
+        <div class="temperature" id="temperature"></div>
+        <div class="description" id="description"></div>
+        
+        <div class="details">
+          <div class="detail-box">
+            <div class="detail-label">💨 Wind Speed</div>
+            <div class="detail-value" id="windSpeed"></div>
+          </div>
+          <div class="detail-box">
+            <div class="detail-label">💧 Humidity</div>
+            <div class="detail-value" id="humidity"></div>
+          </div>
+          <div class="detail-box">
+            <div class="detail-label">🌡️ Feels Like</div>
+            <div class="detail-value" id="feelsLike"></div>
+          </div>
+          <div class="detail-box">
+            <div class="detail-label">👁️ Visibility</div>
+            <div class="detail-value" id="visibility"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Built with ❤️ by Reshma Khatoon | Using Open-Meteo API
+    </div>
+  </div>
+
+  <script>
+    // Using Open-Meteo API (free, no key needed)
+    const cityInput = document.getElementById('cityInput');
+    const weatherInfo = document.getElementById('weatherInfo');
+    const error = document.getElementById('error');
+    const loading = document.getElementById('loading');
+
+    function searchWeather() {
+      const city = cityInput.value.trim();
+      
+      if (!city) {
+        showError('Please enter a city name');
+        return;
+      }
+
+      fetchWeather(city);
+    }
+
+    function fetchWeather(city) {
+      loading.classList.add('active');
+      error.classList.remove('active');
+      weatherInfo.classList.remove('active');
+
+      // First, get coordinates from city name
+      const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=en&format=json`;
+
+      fetch(geoUrl)
+        .then(response => response.json())
+        .then(geoData => {
+          if (!geoData.results || geoData.results.length === 0) {
+            throw new Error('City not found');
+          }
+
+          const { latitude, longitude, name, country } = geoData.results[0];
+          
+          // Now get weather data using coordinates
+          const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,visibility&timezone=auto`;
+          
+          return fetch(weatherUrl).then(res => res.json()).then(weatherData => ({
+            name,
+            country,
+            ...weatherData.current
+          }));
+        })
+        .then(data => displayWeather(data))
+        .catch(err => {
+          showError(err.message || 'Failed to fetch weather data');
+        })
+        .finally(() => {
+          loading.classList.remove('active');
+        });
+    }
+
+    function getWeatherDescription(code) {
+      // WMO Weather interpretation codes
+      const codes = {
+        0: 'Clear sky',
+        1: 'Mainly clear',
+        2: 'Partly cloudy',
+        3: 'Overcast',
+        45: 'Foggy',
+        48: 'Foggy with rime',
+        51: 'Light drizzle',
+        53: 'Moderate drizzle',
+        55: 'Dense drizzle',
+        61: 'Slight rain',
+        63: 'Moderate rain',
+        65: 'Heavy rain',
+        71: 'Slight snow',
+        73: 'Moderate snow',
+        75: 'Heavy snow',
+        80: 'Slight rain showers',
+        81: 'Moderate rain showers',
+        82: 'Violent rain showers',
+        85: 'Slight snow showers',
+        86: 'Heavy snow showers',
+        95: 'Thunderstorm',
+        96: 'Thunderstorm with hail',
+        99: 'Thunderstorm with large hail'
+      };
+      return codes[code] || 'Unknown';
+    }
+
+    function displayWeather(data) {
+      document.getElementById('cityName').textContent = 
+        `${data.name}, ${data.country}`;
+      document.getElementById('temperature').textContent = 
+        `${Math.round(data.temperature_2m)}°C`;
+      document.getElementById('description').textContent = 
+        getWeatherDescription(data.weather_code);
+      document.getElementById('windSpeed').textContent = 
+        `${data.wind_speed_10m} km/h`;
+      document.getElementById('humidity').textContent = 
+        `${data.relative_humidity_2m}%`;
+      document.getElementById('feelsLike').textContent = 
+        `${Math.round(data.apparent_temperature)}°C`;
+      document.getElementById('visibility').textContent = 
+        `${(data.visibility / 1000).toFixed(1)} km`;
+
+      weatherInfo.classList.add('active');
+      error.classList.remove('active');
+    }
+
+    function showError(message) {
+      error.textContent = `❌ ${message}`;
+      error.classList.add('active');
+      weatherInfo.classList.remove('active');
+    }
+
+    // Allow Enter key to search
+    cityInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        searchWeather();
+      }
+    });
+
+    // Load default city on page load
+    window.addEventListener('load', () => {
+      cityInput.value = 'Delhi';
+      searchWeather();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Currency Converter Pro</title>
+  <link rel="stylesheet" href="index.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+  <div class="main-container">
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="nav-content">
+        <h1><i class="fas fa-coins"></i> Currency Converter Pro</h1>
+        <button id="themeToggle" class="theme-btn"><i class="fas fa-moon"></i></button>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+      <!-- Converter Section -->
+      <div class="converter-card">
+        <h2>Real-time Conversion</h2>
+        
+        <div class="converter">
+          <div class="input-group">
+            <label>Amount</label>
+            <input type="number" id="amount" placeholder="Enter amount" value="1" />
+          </div>
+
+          <div class="currency-group">
+            <div class="currency-select">
+              <label>From</label>
+              <div class="select-wrapper">
+                <select id="fromCurrency">
+                  <option value="USD">USD - US Dollar</option>
+                  <option value="EUR">EUR - Euro</option>
+                  <option value="INR">INR - Indian Rupee</option>
+                  <option value="GBP">GBP - British Pound</option>
+                  <option value="JPY">JPY - Japanese Yen</option>
+                  <option value="AUD">AUD - Australian Dollar</option>
+                  <option value="CAD">CAD - Canadian Dollar</option>
+                  <option value="CHF">CHF - Swiss Franc</option>
+                  <option value="CNY">CNY - Chinese Yuan</option>
+                  <option value="SEK">SEK - Swedish Krona</option>
+                </select>
+              </div>
+            </div>
+
+            <button class="swap-btn" onclick="swapCurrencies()" title="Swap currencies">
+              <i class="fas fa-exchange-alt"></i>
+            </button>
+
+            <div class="currency-select">
+              <label>To</label>
+              <div class="select-wrapper">
+                <select id="toCurrency">
+                  <option value="INR">INR - Indian Rupee</option>
+                  <option value="USD">USD - US Dollar</option>
+                  <option value="EUR">EUR - Euro</option>
+                  <option value="GBP">GBP - British Pound</option>
+                  <option value="JPY">JPY - Japanese Yen</option>
+                  <option value="AUD">AUD - Australian Dollar</option>
+                  <option value="CAD">CAD - Canadian Dollar</option>
+                  <option value="CHF">CHF - Swiss Franc</option>
+                  <option value="CNY">CNY - Chinese Yuan</option>
+                  <option value="SEK">SEK - Swedish Krona</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <button class="convert-btn" onclick="convertCurrency()">
+            <i class="fas fa-exchange"></i> Convert
+          </button>
+
+          <div id="result" class="result"></div>
+          <div id="loader" class="loader d-none"></div>
+          <div id="error" class="error d-none"></div>
+        </div>
+      </div>
+
+      <!-- Stats Section -->
+      <div class="stats-card">
+        <h3>Exchange Rate</h3>
+        <div id="rate-info" class="rate-info">
+          <p>1 <span id="rateFrom">USD</span> = <span id="rateValue">--</span> <span id="rateTo">INR</span></p>
+          <small id="updateTime" class="update-time">Last updated: --</small>
+        </div>
+      </div>
+
+      <!-- Favorites Section -->
+      <div class="favorites-card">
+        <h3><i class="fas fa-star"></i> Favorite Pairs</h3>
+        <div id="favorites" class="favorites-list"></div>
+        <button class="add-favorite-btn" onclick="toggleFavoriteForm()">
+          <i class="fas fa-plus"></i> Add Pair
+        </button>
+        <div id="favoriteForm" class="favorite-form d-none">
+          <select id="favFrom"><option value="USD">USD</option><option value="EUR">EUR</option><option value="INR">INR</option><option value="GBP">GBP</option><option value="JPY">JPY</option></select>
+          <span>to</span>
+          <select id="favTo"><option value="INR">INR</option><option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option><option value="JPY">JPY</option></select>
+          <button onclick="addFavorite()"><i class="fas fa-check"></i></button>
+          <button onclick="toggleFavoriteForm()" class="cancel-btn"><i class="fas fa-times"></i></button>
+        </div>
+      </div>
+
+      <!-- History Section -->
+      <div class="history-card">
+        <h3><i class="fas fa-history"></i> Conversion History</h3>
+        <div id="history" class="history-list"></div>
+        <button id="clearHistoryBtn" class="clear-history-btn" onclick="clearHistory()">
+          <i class="fas fa-trash"></i> Clear History
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>💱 Real-time exchange rates powered by open-source API</p>
+    </footer>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>

@@ -1,3 +1,61 @@
+// Particle Animation Background
+function createParticles() {
+    const container = document.getElementById('particle-container');
+    const particleCount = 50; // Number of particles
+    
+    function createParticle() {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random size between 2px and 8px
+        const size = Math.random() * 6 + 2;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        
+        // Random starting position
+        const startX = Math.random() * window.innerWidth;
+        particle.style.left = startX + 'px';
+        particle.style.bottom = '-10px';
+        
+        // Random duration between 8s and 20s
+        const duration = Math.random() * 12 + 8;
+        particle.style.animationDuration = duration + 's';
+        
+        // Random horizontal drift
+        const drift = (Math.random() - 0.5) * 200;
+        particle.style.setProperty('--tx', drift + 'px');
+        
+        // Random animation delay
+        particle.style.animationDelay = Math.random() * 2 + 's';
+        
+        container.appendChild(particle);
+        
+        // Remove particle after animation completes to avoid memory issues
+        setTimeout(() => {
+            particle.remove();
+        }, (duration + 2) * 1000);
+    }
+    
+    // Create initial particles
+    for (let i = 0; i < particleCount; i++) {
+        setTimeout(createParticle, i * 100);
+    }
+    
+    // Continuously create new particles
+    setInterval(() => {
+        if (container.children.length < particleCount) {
+            createParticle();
+        }
+    }, 500);
+}
+
+// Initialize particles when DOM is loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', createParticles);
+} else {
+    createParticles();
+}
+
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {

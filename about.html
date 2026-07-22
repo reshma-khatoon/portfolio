@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me - Full Stack Developer Portfolio</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles-space.css">
+    <link rel="stylesheet" href="styles-inline.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -18,11 +20,17 @@
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html" class="active">About</a></li>
-                <li><a href="index.html#skills">Skills</a></li>
-                <li><a href="index.html#projects">Projects</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
+
+            <button id="themeToggle" class="btn btn-secondary" type="button" aria-label="Toggle theme">
+                <i class="fas fa-moon" aria-hidden="true"></i>
+            </button>
+
             <div class="hamburger">
+
                 <span></span>
                 <span></span>
                 <span></span>
@@ -83,12 +91,12 @@
                 <div class="extended-item">
                     <h3><i class="fas fa-file-pdf"></i> Resume</h3>
                     <p>View my professional resume and work experience</p>
-                    <a href="resume.pdf" target="_blank" class="btn btn-small" style="margin-top: 1rem;">Download Resume</a>
+                    <a href="resume.pdf" target="_blank" class="btn btn-small margin-top-2rem">Download Resume</a>
                 </div>
                 <div class="extended-item">
                     <h3><i class="fas fa-certificate"></i> Certificate</h3>
                     <p>Certificate of completion for Full Stack Development course</p>
-                    <a href="certificate.pdf" target="_blank" class="btn btn-small" style="margin-top: 1rem;">View Certificate</a>
+                    <a href="certificate.pdf" target="_blank" class="btn btn-small margin-top-2rem">View Certificate</a>
                 </div>
             </div>
         </div>
@@ -101,9 +109,9 @@
             <div class="footer-links">
                 <a href="index.html">Home</a>
                 <a href="about.html">About</a>
-                <a href="index.html#skills">Skills</a>
-                <a href="index.html#projects">Projects</a>
-                <a href="index.html#contact">Contact</a>
+                <a href="skills.html">Skills</a>
+                <a href="projects.html">Projects</a>
+                <a href="contact.html">Contact</a>
             </div>
         </div>
     </footer>

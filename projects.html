@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Projects - Full Stack Developer Portfolio</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles-space.css">
+    <link rel="stylesheet" href="styles-inline.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -22,7 +24,13 @@
                 <li><a href="projects.html" class="active">Projects</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
+
+            <button id="themeToggle" class="btn btn-secondary" type="button" aria-label="Toggle theme">
+                <i class="fas fa-moon" aria-hidden="true"></i>
+            </button>
+
             <div class="hamburger">
+
                 <span></span>
                 <span></span>
                 <span></span>
@@ -37,7 +45,7 @@
             <p class="section-subtitle">Showcasing my best JavaScript projects and applications</p>
             <div class="projects-grid">
                 <div class="project-card">
-                    <div class="project-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <div class="project-image gradient-667eea">
                         <i class="fas fa-cloud"></i>
                     </div>
                     <h3>Weather App</h3>
@@ -51,7 +59,7 @@
                 </div>
 
                 <div class="project-card">
-                    <div class="project-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <div class="project-image gradient-f093fb">
                         <i class="fas fa-laugh"></i>
                     </div>
                     <h3>Joke Generator</h3>
@@ -65,8 +73,8 @@
                 </div>
 
                 <div class="project-card">
-                    <div class="project-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
-                        <i class="fas fa-plus-minus"></i>
+                    <div class="project-image gradient-4facfe">
+                        <i class="fas fa-calculator"></i>
                     </div>
                     <h3>Counter App</h3>
                     <p>A simple yet interactive counter application with increment, decrement, and reset functionality. Perfect for understanding JavaScript event handling.</p>
@@ -79,7 +87,7 @@
                 </div>
 
                 <div class="project-card">
-                    <div class="project-image" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                    <div class="project-image gradient-43e97b">
                         <i class="fas fa-user"></i>
                     </div>
                     <h3>Random User Generator</h3>
@@ -93,7 +101,7 @@
                 </div>
 
                 <div class="project-card">
-                    <div class="project-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                    <div class="project-image gradient-fa709a">
                         <i class="fas fa-calculator"></i>
                     </div>
                     <h3>Calculator</h3>
@@ -107,7 +115,7 @@
                 </div>
 
                 <div class="project-card">
-                    <div class="project-image" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                    <div class="project-image gradient-a8edea">
                         <i class="fas fa-coins"></i>
                     </div>
                     <h3>Currency Converter Pro</h3>
@@ -121,7 +129,7 @@
                 </div>
 
                 <div class="project-card">
-                    <div class="project-image" style="background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);">
+                    <div class="project-image gradient-fbbf24">
                         <i class="fas fa-tasks"></i>
                     </div>
                     <h3>Todo List App</h3>
@@ -134,20 +142,48 @@
                     <a href="7project/index.html" class="btn btn-small" target="_blank">View Project</a>
                 </div>
 
+               
                 <div class="project-card">
-                    <div class="project-image" style="background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);">
-                        <i class="fas fa-robot"></i>
+                    <div class="project-image gradient-ffb347">
+                        <i class="fas fa-plane"></i>
                     </div>
-                    <h3>AI ChatBot</h3>
-                    <p>A full-stack AI-powered chatbot built with React and Express.js. Features real-time responses powered by Google Gemini API with Firebase authentication and chat history storage.</p>
+                    <h3>Travel Planner</h3>
+                    <p>An interactive travel planning website featuring destination discovery, itinerary building, hotel search, and transport options with a backend API for dynamic data.</p>
                     <div class="project-tech">
-                        <span class="tech-tag">React</span>
-                        <span class="tech-tag">Tailwind CSS</span>
+                        <span class="tech-tag">HTML/CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Node.js</span>
                         <span class="tech-tag">Express.js</span>
-                        <span class="tech-tag">Google Gemini API</span>
-                        <span class="tech-tag">Firebase</span>
                     </div>
-                    <a href="8project/index.html" class="btn btn-small" target="_blank">View Project</a>
+                    <a href="travelling/index.html" class="btn btn-small" target="_blank">View Project</a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image gradient-6ee7b7">
+                        <i class="fas fa-ferris-wheel"></i>
+                    </div>
+                    <h3>Amusement Park Promo</h3>
+                    <p>A promotional landing page template designed for seasonal campaigns, featuring responsive layouts, animated visuals, and a polished marketing presentation.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML/CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Responsive Design</span>
+                    </div>
+                    <a href="promopact/index.html" class="btn btn-small" target="_blank">View Project</a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image gradient-f8b195">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3>Jewellery Shop</h3>
+                    <p>An elegant jewellery shop website showcasing custom-designed gold and silver pieces with polished visuals, product highlights, and contact details.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML/CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Responsive Design</span>
+                    </div>
+                    <a href="mj/index.html" class="btn btn-small" target="_blank">View Project</a>
                 </div>
             </div>
         </div>

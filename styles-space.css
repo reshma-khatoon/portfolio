@@ -56,7 +56,6 @@ body::before {
     radial-gradient(circle at 15% 25%, rgba(139, 92, 246, 0.18), transparent 22%),
     radial-gradient(circle at 80% 18%, rgba(56, 189, 248, 0.14), transparent 20%),
     radial-gradient(circle at 50% 85%, rgba(244, 114, 182, 0.12), transparent 26%);
-  animation: drift 30s ease-in-out infinite alternate;
   opacity: 0.85;
 }
 
@@ -64,7 +63,6 @@ body::after {
   background:
     radial-gradient(circle at 20% 20%, rgba(255,255,255,0.08), transparent 12%),
     radial-gradient(circle at 80% 60%, rgba(255,255,255,0.05), transparent 14%);
-  animation: pulseGlow 16s ease-in-out infinite;
   opacity: 0.45;
 }
 
@@ -84,19 +82,19 @@ body::after {
   position: absolute;
   display: block;
   border-radius: 50%;
-  background: rgba(255,255,255,0.95);
-  box-shadow: 0 0 8px rgba(255,255,255,0.35);
-  animation: twinkleMove var(--duration, 4s) ease-in-out infinite alternate;
-  opacity: 0.4;
-  will-change: transform, opacity;
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0 0 10px rgba(255,255,255,0.25);
+  animation: twinkleMove var(--duration, 8s) ease-in-out infinite alternate;
+  opacity: 0.45;
+  will-change: opacity, transform;
 }
 
 .particle {
   position: absolute;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.06) 55%, transparent 100%);
+  background: radial-gradient(circle, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.06) 55%, transparent 100%);
   will-change: transform, opacity;
-  animation: particleDrift var(--duration, 14s) linear infinite;
+  animation: particleDrift var(--duration, 18s) linear infinite;
   animation-delay: var(--delay, 0s);
   opacity: 0;
   transform: translate3d(0, 100vh, 0) scale(0.8);
@@ -310,11 +308,11 @@ section h2,
 
 .flow-element {
   opacity: 0;
-  transform: translateY(60px);
+  transform: translate3d(0, 18px, 0);
 }
 
 .flow-element.flow-in {
-  animation: flowInUp 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation: flowInUp 0.6s ease-out forwards;
 }
 
 @keyframes drift {

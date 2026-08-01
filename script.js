@@ -14,7 +14,7 @@ function createStarfield() {
     }
 
     layer.innerHTML = '';
-    const count = Math.min(90, Math.max(60, Math.floor(window.innerWidth / 14)));
+    const count = Math.min(28, Math.max(18, Math.floor(window.innerWidth / 34)));
 
     for (let i = 0; i < count; i += 1) {
         const star = document.createElement('span');
@@ -45,7 +45,7 @@ function createParticles() {
     if (!container) return;
 
     container.innerHTML = '';
-    const particleCount = Math.min(30, Math.max(16, Math.floor(window.innerWidth / 40)));
+    const particleCount = Math.min(10, Math.max(6, Math.floor(window.innerWidth / 90)));
 
     for (let i = 0; i < particleCount; i += 1) {
         const particle = document.createElement('div');
@@ -116,7 +116,8 @@ function handleSmoothScroll() {
             event.preventDefault();
             const target = document.querySelector(anchor.getAttribute('href'));
             if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const targetTop = target.getBoundingClientRect().top + window.scrollY - 90;
+                window.scrollTo({ top: targetTop, behavior: 'smooth' });
                 if (navLinks) navLinks.classList.remove('active');
                 if (hamburger) hamburger.classList.remove('active');
             }
@@ -223,6 +224,41 @@ function initSkillProgress() {
     document.querySelectorAll('.skill-progress').forEach((el) => observer.observe(el));
 }
 
+function initCounters() {
+    const counters = document.querySelectorAll('.stat-number');
+    if (!counters.length) return;
+
+    const animateCounter = (element) => {
+        const target = Number(element.dataset.target || 0);
+        const suffix = element.dataset.suffix || '';
+        const duration = 1200;
+        const start = 0;
+        const startTime = performance.now();
+
+        const update = (timestamp) => {
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            const current = Math.round(start + (target - start) * progress);
+            element.textContent = `${current}${suffix}`;
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            }
+        };
+
+        requestAnimationFrame(update);
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.4 });
+
+    counters.forEach((counter) => observer.observe(counter));
+}
+
 function initThemeToggle() {
     const styleEl = document.createElement('style');
     styleEl.textContent = `html { transition: background-color 250ms ease, color 250ms ease; } * { transition: background-color 250ms ease, color 250ms ease, border-color 250ms ease; }`;
@@ -267,6 +303,7 @@ function init() {
     handleActiveNav();
     initContactForm();
     initSkillProgress();
+    initCounters();
     initThemeToggle();
     initAudio();
     window.addEventListener('resize', () => {
